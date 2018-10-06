@@ -13,3 +13,16 @@ The selector also is available for the replica controller, when not defined, it 
 The labels are the filters for replica sets to know what pods to monitor among all pods running in a cluster, the label, the label defined at the pod, for replica sets the pod definition is under spec.template.meta
 
 kubectl replace -f replicaset.yml after changing the number of replicas at the yml file will scale up or down the number of running pods
+
+kubectl useful commands for replicaset:
+
+create, get, delete, replace, scale
+
+```bash
+kubectl create -f replicaset.yml
+kubectl get replicaset
+kubectl delete replicaset myapp-replicaset
+kubectl delete replicaset -f replicaset.yml
+kubectl replace -f replicaset-definition.yml
+kubectl scale -replicas=6 -f replicaset.yml
+``` 
