@@ -6,9 +6,10 @@ The replication controllers also are useful to create multiple pods to balance t
 
 Replica Set is not the same as Replica Controller even when they have the same purpose, Replica Set is the new recommended way to set replication, Replica Set is the technology replacing the older one Replica Controller.
 
-
 The main difference between the replica set and the replica controller is that the replica set contains a selector, that helps the replica set identify what pods fall under it because replica sets also can manage pods that were not created as part of the replica set creation, if there are pods created before the replica set creation that match the labels specification of the replica set, then the replica set will also affect pods when creating the replicas
 
 The selector also is available for the replica controller, when not defined, it assumes is the same as the labels defined at the pod
 
-The labels are the filters for replica sets to know what pods to monitor among all pods running in a cluster, the label, the label defined at the pod, for replica sets the pod definition is under spec.template.metadata
+The labels are the filters for replica sets to know what pods to monitor among all pods running in a cluster, the label, the label defined at the pod, for replica sets the pod definition is under spec.template.meta
+
+kubectl replace -f replicaset.yml after changing the number of replicas at the yml file will scale up or down the number of running pods
