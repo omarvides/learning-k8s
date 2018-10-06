@@ -8,3 +8,7 @@ Replica Set is not the same as Replica Controller even when they have the same p
 
 
 The main difference between the replica set and the replica controller is that the replica set contains a selector, that helps the replica set identify what pods fall under it because replica sets also can manage pods that were not created as part of the replica set creation, if there are pods created before the replica set creation that match the labels specification of the replica set, then the replica set will also affect pods when creating the replicas
+
+The selector also is available for the replica controller, when not defined, it assumes is the same as the labels defined at the pod
+
+The labels are the filters for replica sets to know what pods to monitor among all pods running in a cluster, the label, the label defined at the pod, for replica sets the pod definition is under spec.template.metadata
