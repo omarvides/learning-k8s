@@ -22,7 +22,7 @@ To delete the created pod
 kubectl delete -f pod-definition-nginx-prod.yml
 ```
 
-## For a replica set with 5 pods instances running
+## For a replica controller with 5 pods instances running
 ```
 kubectl create -f replication-controller.yml
 kubectl get replicationcontroller
