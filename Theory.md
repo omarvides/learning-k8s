@@ -26,3 +26,26 @@ kubectl delete replicaset -f replicaset.yml
 kubectl replace -f replicaset-definition.yml
 kubectl scale -replicas=6 -f replicaset.yml
 ``` 
+
+If a pod is deleted with ```kubectl delete pod <podname>```
+Kubernetes will replace the deleted pod "immediatly",  ```kubectl get pods```
+will show that a container is in status Terminating and anotherone will be in state ContainerCreating, after creating the replica if ```kubectl create -f pods/pod-definition-nginx.yml``` the replica set will delete it since there shouldn't be more than 3 pods running with that label according to that replica set.
+
+kubectl describe replicaset will provide some information related to that replicaset, stuff like
+
+```Replicas:     3 current / 3 desired
+Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+```
+and will have logs of the events, showing that there was an extra pod and needed to be deleted
+
+```
+  Type    Reason            Age              From                   Message
+  ----    ------            ----             ----                   -------
+  Normal  SuccessfulCreate  6m               replicaset-controller  Created pod: someapp-replicaset-bc2tn
+  Normal  SuccessfulCreate  6m               replicaset-controller  Created pod: someapp-replicaset-msm8m
+  Normal  SuccessfulCreate  6m               replicaset-controller  Created pod: someapp-replicaset-tswlz
+  Normal  SuccessfulCreate  5m               replicaset-controller  Created pod: someapp-replicaset-4xwvs
+  Normal  SuccessfulDelete  2s (x2 over 2m)  replicaset-controller  Deleted pod: someapp-pod
+```
+
+To destroy the replica set ```kubectl delete replicaset some-app```
