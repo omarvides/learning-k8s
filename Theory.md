@@ -1,6 +1,7 @@
 # Kubernetes: Replication Controller
 
-Controllers are the brain behind k8s they monitor objects and respond accordingly, on scenarios where the application crashes and the pod fails, the replication controller makes sure that there are always running the number of pods specified
+
+To create a deployment ```kubectl create -f deployment-file.yml```Controllers are the brain behind k8s they monitor objects and respond accordingly, on scenarios where the application crashes and the pod fails, the replication controller makes sure that there are always running the number of pods specified
 
 The replication controllers also are useful to create multiple pods to balance the load across all pod, replication controllers can manage pods across multiple clusters, (it spans pods across multiple nodes in the cluster), it also scales the application when the demand increases.
 
@@ -49,3 +50,29 @@ and will have logs of the events, showing that there was an extra pod and needed
 ```
 
 To destroy the replica set ```kubectl delete replicaset some-app```
+To create a deployment ```kubectl create -f deployment-file.yml```
+```kubectl get all``` will show all deployments and replicasets created
+```kubectl describe deployment``` will show information about the deployment
+
+## Rollout ad revisions
+
+On rollouts kubernetes creates a Revision 1 and Revision 2 where the Revision 1 is the old version and Revision 2 is the newer version, this allows  to safely rollback
+
+To see status of the latest rollout
+``` kubectl rollout status deployment/some-deployment```
+
+To see history of rollouts
+```kubectl rollout history deployment/some-deployment```
+
+Kubernetes has deployment strategies out of the box
+
+- RECREATE: Destroy all and create all later (produces a downtime)
+- ROLLING UPDATE (K8s will assume this by default if no strategy es provided): Take one old and bring one new one by one (will not produce a downtime)
+
+By updating the tag of the container a new rollout can be created
+
+```kubectl apply -f deployment-definition.yml```
+
+will update the deployment
+
+
